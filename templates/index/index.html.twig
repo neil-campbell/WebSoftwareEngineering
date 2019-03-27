@@ -25,19 +25,31 @@ $( "#loginButton" ).click(function() {
         alert( "Data Loaded: " + data );
         
         if(data == 'customer'){
-            window.location="/index#customer";
+            window.location="/index#products";
         }
         else if(data == 'driver'){
             window.location="/index#driver";
         }        
        });
+});
+
+$( "#registerButton" ).click(function() {
+  
+      var un = $( "#username" ).val();
+      console.log(un);
+      
+      var pw = $( "#pass" ).val();
+      console.log(pw);
+      
+      var at = $( "#acctype" ).val();
+      console.log(at);
+      $.post( "/backend", { type: "register", username:un, password:pw, acctype:at})
+     .done(function( data ) {
+        alert( "Data Loaded: " + data );
+       });
 
   //alert( "register button pressed!" );
 });
-
-
-
-
 </script>
 
 </head>
@@ -45,7 +57,7 @@ $( "#loginButton" ).click(function() {
 <body>
 
 <!-- Start of first page: #one -->
-<div data-role="page" id="one">
+<div data-role="page" id="">
 	<div data-role="header">
 		<h1>Multi-page</h1>
 	</div><!-- /header -->
@@ -74,289 +86,60 @@ $( "#loginButton" ).click(function() {
 	</div><!-- /content -->
 </div>
 
-<div data-role="page" id="driver" data-theme="a">
-       <div data-role="header">
-		<h1>Driver</h1>
-      </div><!-- /header -->
-      <div role="main" class="ui-content">
-	</div><!-- /content -->
-</div>
-
-
-<div data-role="page" id="customer" data-theme="a">
-       <div data-role="header">
-		<h1>Customer page</h1>
-      </div><!-- /header -->
-
-      <div role="main" class="ui-content">
-
- <div id="orderOptions">
-
-<!--
-Add some cookies.. 	<button id="addCookies">Add Cookies</button>
-					<button id="removeCookies">Remove Cookies</button>
-					<button id="addCoke">Add Coke</button>
-					<button id="addPizza">Add Pizza</button>
--->
-<button id="viewCart">viewCart</button>
-
-<div id="myCart"></div>
-
-<h1>Choose your Pizza</h1>
-		<form>
-		    <fieldset data-role="controlgroup" data-type="horizontal">
-		        <legend>Hawaiian Pizza:</legend><br>
-				<img src="../../public/images/hawaiian.jpg" height="115" width="115">
-				<p>Thin Base / Tomato Sauce / Mozzarella Cheese / Ham / Pineapple </p>
-		        <input type="radio" name="pizza" id="hawaiianSmall" value="Hawaiian_Small">
-		        <label for="hawaiianSmall">Small - €5</label>
-		        <input type="radio" name="pizza" id="hawaiianMedium" value="Hawaiian_Medium">
-		        <label for="hawaiianMedium">Medium - €10</label>
-		        <input type="radio" name="pizza" id="hawaiianLarge" value="Hawaiian_Large">
-		        <label for="hawaiianLarge">Large - €11</label>
-		    </fieldset>
-		</form>
-
-		<form>
-		    <fieldset data-role="controlgroup" data-type="horizontal">
-		        <legend>New Yorker Pizza:</legend><br>
-				<!--<img src="../../public/images/hawaiian.jpg" class="ui-li-has-thumb"/>-->
-				<br>
-				<p>Thin Base / Tomato Sauce / Mozzarella Cheese / Pepperoni / Ham / Bacon
-					/ Mushrooms</p>
-		        <input type="radio" name="pizza" id="newYorkerSmall" value="NewYorker_Small">
-		        <label for="newYorkerSmall">Small - €5</label>
-		        <input type="radio" name="pizza" id="newYorkerMedium" value="NewYorker_Medium">
-		        <label for="newYorkerMedium">Medium - €10</label>
-		        <input type="radio" name="pizza" id="newYorkerLarge" value="NewYorker_Large">
-		        <label for="newYorkerLarge">Large - €11</label>
-		    </fieldset>
-		</form>
-			<script>
-			//bind the handler for the click onto the button Hawaiian Small
-			$("#newYorkerSmall").click(function(){
-				//add to the list of items we want
-				products.push("newYorkerSmall");
-			});
-
-			//bind the handler for the click onto the button Hawaiian Medium
-			$("#newYorkerMedium").click(function(){
-				//add to the list of items we want
-				products.push("newYorkerMedium");
-			});
-
-			//bind the handler for the click onto the button Hawaiian Large
-			$("#newYorkerLarge").click(function(){
-				//add to the list of items we want
-				products.push("newYorkerLarge");
-			});
-			</script>
-		<form>
-		    <fieldset data-role="controlgroup" data-type="horizontal">
-		        <legend>House Special:</legend><br>
-				<!--<img src="/public/images/hawaiian.jpg" height="128" width="128">-->
-				<br>
-				<p>Thin Base / Tomato Sauce / Mozzarella Cheese / Ground Beef / Onions / 
-					Green and Red Peppers / Jalapeno Peppers</p>
-		        <input type="radio" name="pizza" id="houseSpecialSmall" value="HouseSpecial_Small">
-		        <label for="houseSpecialSmall">Small - €5</label>
-		        <input type="radio" name="pizza" id="houseSpecialMedium" value="HouseSpecial_Medium">
-		        <label for="houseSpecialMedium">Medium - €10</label>
-		        <input type="radio" name="pizza" id="houseSpecialLarge" value="HouseSpecial_Large">
-		        <label for="houseSpecialLarge">Large - €11</label>
-		    </fieldset>
-		</form>
-			<script>
-			//bind the handler for the click onto the button Hawaiian Small
-			$("#houseSpecialSmall").click(function(){
-				//add to the list of items we want
-				products.push("houseSpecialSmall");
-			});
-
-			//bind the handler for the click onto the button Hawaiian Medium
-			$("#houseSpecialMedium").click(function(){
-				//add to the list of items we want
-				products.push("houseSpecialMedium");
-			});
-
-			//bind the handler for the click onto the button Hawaiian Large
-			$("#houseSpecialLarge").click(function(){
-				//add to the list of items we want
-				products.push("houseSpecialLarge");
-			});
-			</script>
-
-<br>
-<hr>
-
-<h2>Add a little something extra?</h2>
-
-		<form>
-		    <fieldset data-role="controlgroup" data-type="horizontal">
-		        <legend>Sides:</legend>
-				<br>
-		        <input type="radio" name="sides" id="potatoWedges" value="Potato Wedges">
-		        <label for="potatoWedges">Potato Wedges - €5</label>
-		        <input type="radio" name="sides" id="garlicBread" value="Garlic Bread">
-		        <label for="garlicBread">Garlic Bread - €5</label>
-		    </fieldset>
-		</form>
-			<script>
-			//bind the handler for the click onto the button Hawaiian Small
-			$("#potatoWedges").click(function(){
-				//add to the list of items we want
-				products.push("potatoWedges");
-			});
-
-			//bind the handler for the click onto the button Hawaiian Medium
-			$("#garlicBread").click(function(){
-				//add to the list of items we want
-				products.push("garlicBread");
-			});
-
-			</script>
-
-<h2>Thirsty??</h2>
-
-		<form>
-		    <fieldset data-role="controlgroup" data-type="horizontal">
-		        <legend>Drinks:</legend><br>
-		        <input type="radio" name="drinks" id="coca-cola" value="Coke">
-		        <label for="coca-cola">Coke - €1</label>
-		        <input type="radio" name="drinks" id="fanta" value="Fanta">
-		        <label for="fanta">Fanta - €1</label>
-		        <input type="radio" name="drinks" id="sprite" value="Sprite">
-		        <label for="sprite">Sprite - €1</label>
-		    </fieldset>
-		</form>
-
-
-
-    
-
-    <label for="textarea-1">Customer comments:</label>
-    <textarea name="comments" id="comments"></textarea>
-
-      
-      <button id="placeOrder">Place order </button>
-
-
-
-      
- </div>     
-      
-	</div><!-- /content -->
-    
-    
-    <h2> Your order details:</h2><br>
-    <div id="orderDetails"/>
-    
-    
-    </div>
-    <button id="goback">Go back to order  </button>
-    
-    
-    <button id="completeOrder">Complete order </button>
-    
-</div>
-
-
-<script>
-$("#completeOrder").click(function(){
-
-     var order = $("#orderDetails").html();
-
-     alert(order);
-     
-     // put a jquery post here to the database. using the /backend
-
-
-});
-
-
-
-$("#goback").click(function(){
-
-     $("#orderOptions").show();
-    
-     $("#orderDetails").html(""); // wipe the older order display
-
-});
-
-
-$( "#placeOrder" ).click(function() {
-
-
-    $("#orderOptions").hide();
-
-    var content = '';// build up the content
- 
-    content = content + '<b> Pizza type</b>';
-    
-    var pizza = $("input[name=pizza]").each(function() {
-         if(this.checked == true) { // filter only the ones that we selected.
-              content = content + this.value + ":" + this.checked + '<br>';
-         }
-    });
-    
-    
-    
-    
-    var comments = $("#comments").val(); // get the comments
-    
-    content = content + '<b>Additional order comments</b></br>';
-    content = content + comments + '<br>';
-    
-    
-    $("#orderDetails").html(content);
-
-});
-  
-</script>
 
 <div data-role="page" id="register" data-theme="a">
-
        <div data-role="header">
 		<h1>Register</h1>
       </div><!-- /header -->
-
       <div role="main" class="ui-content">
 		<h2>Register</h2>
-        
        Username <input type="text" name="username" id="username" value="">
        Password <input type="text" name="pass" id="pass" value="">
         AccType <input type="text" name="acctype" id="acctype" value="">
        <button class="ui-btn" id="registerButton">Submit</button>
-
-
 	</div><!-- /content -->
 </div>
-</body>
 
+
+<div data-role="page" id="products" data-theme="a">
+      <div data-role="header">
+		<h1>Products</h1>
+      </div><!-- /header -->
+
+      <div role="main" class="ui-content">
+		<h2>Products</h2>
+       
+	</div><!-- /content -->
+</div>
+
+<div data-role="page" id="add-products" data-theme="a">
+      <div data-role="header">
+		<h1>Add Products</h1>
+      </div><!-- /header -->
+      <div role="main" class="ui-content">
+		<h2>Add Products</h2>
+	    Name <input type="text" name="name" id="name" value="">
+        Type <input type="text" name="type" id="type" value="">
+        Price <input type="text" name="price" id="price" value="">
+		Image <input type="file" name="image" id="image" value="">
+       <button class="ui-btn" id="addProductButton">Submit</button>
+	</div><!-- /content -->
+</div>
 
 <script>
-
-$( "#registerButton" ).click(function() {
-  
-      var un = $( "#username" ).val();
-      console.log(un);
-      
-      var pw = $( "#pass" ).val();
-      console.log(pw);
-      
-      var at = $( "#acctype" ).val();
-      console.log(at);
-      
-      
-      
-      $.post( "/backend", { type: "register", username:un, password:pw, acctype:at})
-     .done(function( data ) {
+ $("#addProductButton").click(function() {
+ 	 alert( "add product button pressed!" );
+      var pname = $( "#name" ).val();
+      var ptype = $( "#type" ).val();
+	  var pprice = $( "#price" ).val();
+	  var pimage = btoa($( "#image" )[0].files[0]);  //converting image file to base64
+     $.post( "/backend", { type: "add", name: pname, ptype: ptype, price: pprice, image: pimage})
+	 .done(function( data ) {
         alert( "Data Loaded: " + data );
        });
-
-  //alert( "register button pressed!" );
 });
-
 </script>
 
+
+</body>
 </html>

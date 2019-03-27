@@ -32,7 +32,7 @@ class Products
     private $price;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="string", length=2048, nullable=true)
      */
     private $image;
 
@@ -77,15 +77,17 @@ class Products
         return $this;
     }
 
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage($image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
+
+   
 }
