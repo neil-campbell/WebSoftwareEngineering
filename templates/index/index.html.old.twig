@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Multi-page template</title>
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<script>
+$( "#loginButton" ).click(function() {
+      var un = $( "#login_username" ).val();
+      console.log(un);
+      
+      var pw = $( "#login_pass" ).val();
+      console.log(pw);
+      
+      $.post( "/backend", { type: "login", username:un, password:pw})
+     .done(function( data ) {
+        alert( "Data Loaded: " + data );
+        
+        if(data == 'customer'){
+            window.location="/index#customer";
+        }
+        else if(data == 'driver'){
+            window.location="/index#driver";
+        }        
+       });
+
+  //alert( "register button pressed!" );
+});
+
+
+
+
+</script>
+
+</head>
+
+<body>
+
+<!-- Start of first page: #one -->
+<div data-role="page" id="one">
+	<div data-role="header">
+		<h1>Multi-page</h1>
+	</div><!-- /header -->
+	<div role="main" class="ui-content">
+		<h2>Welcome!</h2>
+		<br>
+        Welcome to the application, login or register.
+		<h3>Show internal pages:</h3>
+		<p><a href="#register" class="ui-btn ui-shadow ui-corner-all">Register</a></p>
+		<p><a href="#login" class="ui-btn ui-shadow ui-corner-all">Login</a></p>
+	</div><!-- /content -->
+	<div data-role="footer" data-theme="a">
+		<h4>Page Footer</h4>
+	</div><!-- /footer -->
+</div><!-- /page one -->
+
+<div data-role="page" id="login" data-theme="a">
+<div data-role="header">
+		<h1>Login page</h1>
+	</div>
+     <div role="main" class="ui-content">
+		<h2>Login</h2>
+	   Username <input type="text" name="login_username" id="login_username" value="">
+       Password <input type="text" name="login_pass" id="login_pass" value="">
+        <button class="ui-btn" id="loginButton">Submit</button>
+	</div><!-- /content -->
+</div>
+
+<div data-role="page" id="driver" data-theme="a">
+       <div data-role="header">
+		<h1>Driver</h1>
+      </div><!-- /header -->
+      <div role="main" class="ui-content">
+	</div><!-- /content -->
+</div>
+
+
+<div data-role="page" id="customer" data-theme="a">
+       <div data-role="header">
+		<h1>Customer page</h1>
+      </div><!-- /header -->
+
+      <div role="main" class="ui-content">
+
+ <div id="orderOptions">
+
+<!--
+Add some cookies.. 	<button id="addCookies">Add Cookies</button>
+					<button id="removeCookies">Remove Cookies</button>
+					<button id="addCoke">Add Coke</button>
+					<button id="addPizza">Add Pizza</button>
+-->
+<button id="viewCart">viewCart</button>
+
+<div id="myCart"></div>
+
+<h1>Choose your Pizza</h1>
+		<form>
+		    <fieldset data-role="controlgroup" data-type="horizontal">
+		        <legend>Hawaiian Pizza:</legend><br>
+				<img src="../../public/images/hawaiian.jpg" height="115" width="115">
+				<p>Thin Base / Tomato Sauce / Mozzarella Cheese / Ham / Pineapple </p>
+		        <input type="radio" name="pizza" id="hawaiianSmall" value="Hawaiian_Small">
+		        <label for="hawaiianSmall">Small - €5</label>
+		        <input type="radio" name="pizza" id="hawaiianMedium" value="Hawaiian_Medium">
+		        <label for="hawaiianMedium">Medium - €10</label>
+		        <input type="radio" name="pizza" id="hawaiianLarge" value="Hawaiian_Large">
+		        <label for="hawaiianLarge">Large - €11</label>
+		    </fieldset>
+		</form>
+
+
+		<form>
+		    <fieldset data-role="controlgroup" data-type="horizontal">
+		        <legend>New Yorker Pizza:</legend><br>
+				<!--<img src="../../public/images/hawaiian.jpg" class="ui-li-has-thumb"/>-->
+				<br>
+				<p>Thin Base / Tomato Sauce / Mozzarella Cheese / Pepperoni / Ham / Bacon
+					/ Mushrooms</p>
+		        <input type="radio" name="pizza" id="newYorkerSmall" value="NewYorker_Small">
+		        <label for="newYorkerSmall">Small - €5</label>
+		        <input type="radio" name="pizza" id="newYorkerMedium" value="NewYorker_Medium">
+		        <label for="newYorkerMedium">Medium - €10</label>
+		        <input type="radio" name="pizza" id="newYorkerLarge" value="NewYorker_Large">
+		        <label for="newYorkerLarge">Large - €11</label>
+		    </fieldset>
+		</form>
+			<script>
+			//bind the handler for the click onto the button Hawaiian Small
+			$("#newYorkerSmall").click(function(){
+				//add to the list of items we want
+				products.push("newYorkerSmall");
+			});
+
+			//bind the handler for the click onto the button Hawaiian Medium
+			$("#newYorkerMedium").click(function(){
+				//add to the list of items we want
+				products.push("newYorkerMedium");
+			});
+
+			//bind the handler for the click onto the button Hawaiian Large
+			$("#newYorkerLarge").click(function(){
+				//add to the list of items we want
+				products.push("newYorkerLarge");
+			});
+			</script>
+
+		<form>
+		    <fieldset data-role="controlgroup" data-type="horizontal">
+		        <legend>House Special:</legend><br>
+				<!--<img src="/public/images/hawaiian.jpg" height="128" width="128">-->
+				<br>
+				<p>Thin Base / Tomato Sauce / Mozzarella Cheese / Ground Beef / Onions / 
+					Green and Red Peppers / Jalapeno Peppers</p>
+		        <input type="radio" name="pizza" id="houseSpecialSmall" value="HouseSpecial_Small">
+		        <label for="houseSpecialSmall">Small - €5</label>
+		        <input type="radio" name="pizza" id="houseSpecialMedium" value="HouseSpecial_Medium">
+		        <label for="houseSpecialMedium">Medium - €10</label>
+		        <input type="radio" name="pizza" id="houseSpecialLarge" value="HouseSpecial_Large">
+		        <label for="houseSpecialLarge">Large - €11</label>
+		    </fieldset>
+		</form>
+			<script>
+			//bind the handler for the click onto the button Hawaiian Small
+			$("#houseSpecialSmall").click(function(){
+				//add to the list of items we want
+				products.push("houseSpecialSmall");
+			});
+
+			//bind the handler for the click onto the button Hawaiian Medium
+			$("#houseSpecialMedium").click(function(){
+				//add to the list of items we want
+				products.push("houseSpecialMedium");
+			});
+
+			//bind the handler for the click onto the button Hawaiian Large
+			$("#houseSpecialLarge").click(function(){
+				//add to the list of items we want
+				products.push("houseSpecialLarge");
+			});
+			</script>
+
+<br>
+<hr>
+
+<h2>Add a little something extra?</h2>
+
+		<form>
+		    <fieldset data-role="controlgroup" data-type="horizontal">
+		        <legend>Sides:</legend>
+				<br>
+		        <input type="radio" name="sides" id="potatoWedges" value="Potato Wedges">
+		        <label for="potatoWedges">Potato Wedges - €5</label>
+		        <input type="radio" name="sides" id="garlicBread" value="Garlic Bread">
+		        <label for="garlicBread">Garlic Bread - €5</label>
+		    </fieldset>
+		</form>
+			<script>
+			//bind the handler for the click onto the button Hawaiian Small
+			$("#potatoWedges").click(function(){
+				//add to the list of items we want
+				products.push("potatoWedges");
+			});
+
+			//bind the handler for the click onto the button Hawaiian Medium
+			$("#garlicBread").click(function(){
+				//add to the list of items we want
+				products.push("garlicBread");
+			});
+
+			</script>
+
+<h2>Thirsty??</h2>
+
+		<form>
+		    <fieldset data-role="controlgroup" data-type="horizontal">
+		        <legend>Drinks:</legend><br>
+		        <input type="radio" name="drinks" id="coca-cola" value="Coke">
+		        <label for="coca-cola">Coke - €1</label>
+		        <input type="radio" name="drinks" id="fanta" value="Fanta">
+		        <label for="fanta">Fanta - €1</label>
+		        <input type="radio" name="drinks" id="sprite" value="Sprite">
+		        <label for="sprite">Sprite - €1</label>
+		    </fieldset>
+		</form>
+
+
+
+    
+
+    <label for="textarea-1">Customer comments:</label>
+    <textarea name="comments" id="comments"></textarea>
+
+      
+      <button id="placeOrder">Place order </button>
+
+
+
+      
+ </div>     
+      
+	</div><!-- /content -->
+    
+    
+    <h2> Your order details:</h2><br>
+    <div id="orderDetails"/>
+    
+    
+    </div>
+    <button id="goback">Go back to order  </button>
+    
+    
+    <button id="completeOrder">Complete order </button>
+    
+</div>
+
+
+<script>
+$("#completeOrder").click(function(){
+
+     var order = $("#orderDetails").html();
+
+     alert(order);
+     
+     // put a jquery post here to the database. using the /backend
+
+
+});
+
+
+
+$("#goback").click(function(){
+
+     $("#orderOptions").show();
+    
+     $("#orderDetails").html(""); // wipe the older order display
+
+});
+
+
+$( "#placeOrder" ).click(function() {
+
+
+    $("#orderOptions").hide();
+
+    var content = '';// build up the content
+ 
+    content = content + '<b> Pizza type</b>';
+    
+    var pizza = $("input[name=pizza]").each(function() {
+         if(this.checked == true) { // filter only the ones that we selected.
+              content = content + this.value + ":" + this.checked + '<br>';
+         }
+    });
+    
+    
+    
+    
+    var comments = $("#comments").val(); // get the comments
+    
+    content = content + '<b>Additional order comments</b></br>';
+    content = content + comments + '<br>';
+    
+    
+    $("#orderDetails").html(content);
+
+});
+  
+</script>
+
+<div data-role="page" id="register" data-theme="a">
+
+       <div data-role="header">
+		<h1>Register</h1>
+      </div><!-- /header -->
+
+      <div role="main" class="ui-content">
+		<h2>Register</h2>
+        
+       Username <input type="text" name="username" id="username" value="">
+       Password <input type="text" name="pass" id="pass" value="">
+        AccType <input type="text" name="acctype" id="acctype" value="">
+       <button class="ui-btn" id="registerButton">Submit</button>
+
+
+	</div><!-- /content -->
+</div>
+</body>
+
+
+<script>
+
+$( "#registerButton" ).click(function() {
+  
+      var un = $( "#username" ).val();
+      console.log(un);
+      
+      var pw = $( "#pass" ).val();
+      console.log(pw);
+      
+      var at = $( "#acctype" ).val();
+      console.log(at);
+      
+      
+      
+      $.post( "/backend", { type: "register", username:un, password:pw, acctype:at})
+     .done(function( data ) {
+        alert( "Data Loaded: " + data );
+       });
+
+  //alert( "register button pressed!" );
+});
+
+</script>
+
+
+
+<!-- Examples from Lecture -->
+
+<script>
+var products = [];
+</script>
+
+<script>
+//create the template for a product
+
+class product {
+  constructor(name, price, qty) {
+    this.name = name
+    this.price = price;
+    this.qty = qty;
+  }
+}
+
+
+//define our products
+/*
+cookies = new product("cookies", 3.50, 0);
+coke = new product("coke", 1.00, 0);
+pizza = new product("pizza", 5.00, 0);
+*/
+
+hawaiianSmall = new product("hawaiianSmall", 5.00, 0);
+hawaiianMedium = new product("hawaiianMedium", 10.00, 0);
+hawaiianLarge = new product("hawaiianLarge", 11.00, 0);
+
+
+
+
+
+</script>
+
+
+<script>
+/*
+//bind the handler for the click onto the button Add Cookies
+$( "#addCookies" ).click(function() {
+
+       cookies.qty = cookies.qty + 1;
+
+});
+
+//bind the handler for the click onto the button Remove Cookies
+$( "#removeCookies" ).click(function() {
+
+       cookies.qty = cookies.qty - 1;
+
+});
+
+$( "#addCoke" ).click(function() {
+
+       coke.qty = coke.qty + 1;
+
+});
+
+$( "#addPizza" ).click(function() {
+
+       pizza.qty = pizza.qty + 1;
+
+});
+*/
+
+//bind the handler for the click onto the button Remove Cookies
+$( "#hawaiianSmall" ).click(function() {
+		//manipulating the object for hawaiianMedium
+       	hawaiianSmall.qty = hawaiianSmall.qty + 1;
+       	updateCart();
+
+});
+
+//bind the handler for the click onto the button Hawaiian Medium
+$("#hawaiianMedium").click(function(){
+		//manipulating the object for hawaiianMedium
+		hawaiianMedium.qty = hawaiianMedium.qty + 1;
+		updateCart();
+});
+
+//bind the handler for the click onto the button Hawaiian Large
+$("#hawaiianLarge").click(function(){
+		//manipulating the object for hawaiianLarge
+		hawaiianLarge.qty = hawaiianLarge.qty + 1;
+		updateCart();
+});
+/*
+$( "#viewCart" ).click(function() {
+      // little variable that holds the content we will print
+*/
+
+//function to update the cart
+function updateCart(){
+
+      
+      var content = '';
+      /*
+      if (cookies.qty >= 1) { // check to see if we should add it or not
+          content = content + "Cookies " + cookies.qty + " price" + cookies.qty * cookies.price;
+      }
+      if (coke.qty >= 1) { // check to see if we should add it or not
+          content = content + "Coke " + coke.qty + " price" + coke.qty * coke.price;
+      }
+      if (pizza.qty >= 1) { // check to see if we should add it or not
+          content = content + "Pizza " + pizza.qty + " price" + pizza.qty * pizza.price;
+      }
+      */
+     	 if (hawaiianSmall.qty >= 1) { // check to see if we should add it or not
+          content = content + "Hawaiian Small" + hawaiianSmall.qty + " price" + hawaiianSmall.qty * hawaiianSmall.price;
+          $( "#pizzaQty" ).val(hawaiianSmall.qty);
+
+      }
+      	if (hawaiianMedium.qty >= 1) { // check to see if we should add it or not
+          content = content + "Hawaiian Medium" + hawaiianMedium.qty + " price" + hawaiianMedium.qty * hawaiianMedium.price;
+      }
+        if (hawaiianLarge.qty >= 1) { // check to see if we should add it or not
+          content = content + "Hawaiian Medium" + hawaiianLarge.qty + " price" + hawaiianLarge.qty * hawaiianLarge.price;
+      }
+
+
+      
+
+
+      // display the content variable in the myCart div.
+      console.log(content);
+      $( "#myCart" ).html(content);
+      
+  }
+
+
+$( "#viewCart" ).click(function() {
+      
+       updateCart();  
+    
+  });
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
