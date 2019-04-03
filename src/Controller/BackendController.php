@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Login;
 use App\Entity\Products;
+use App\Entity\Orders;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;   
 
@@ -60,29 +61,6 @@ class BackendController extends AbstractController
                 return new Response(
                     $person->getAcctype()
                     );               
-        }else if($type == 'addProducts'){
-            $name = $request->request->get('name', 'none');
-            $ptype = $request->request->get('ptype', 'none');
-            $price = $request->request->get('price', 'none');
-            $image = $request->request->get('image', 'none');
-           
-             // put in the database            
-             $entityManager = $this->getDoctrine()->getManager();
-
-              $products = new Products();
-              $products->setName($name);
-              $products->setType($ptype);
-              $products->setPrice($price);
-              $products->setImage($image);
-     
-              $entityManager->persist($products);
-
-            // actually executes the queries (i.e. the INSERT query)
-             $entityManager->flush(); 
-
-            return new Response(
-                'Product added.'
-               );
         }
     }
 }

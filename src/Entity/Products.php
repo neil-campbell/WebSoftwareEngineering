@@ -6,8 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
+ * @ORM\Table(name="products")
  */
-class Products
+class Products implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -35,6 +36,11 @@ class Products
      * @ORM\Column(type="string", length=2048, nullable=true)
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $size;
 
     public function getId(): ?int
     {
@@ -89,5 +95,28 @@ class Products
         return $this;
     }
 
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    public function setSize(string $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id"=> $this->getId(),
+            "name" => $this->getName(),
+            "type"=> $this->getType(),
+            "price"=> $this->getPrice(),
+            "image"=> $this->getImage(),
+            "size"=> $this->getSize()
+        ];
+    }
    
 }
