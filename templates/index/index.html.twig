@@ -13,9 +13,9 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
       crossorigin="anonymous">
+<link rel="stylesheet" href="css/main.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
 
 </head>
 
@@ -63,31 +63,48 @@
 	</div><!-- /content -->
 </div>
 
-<div data-role="page" id="products" data-theme="a">
-      <div data-role="header">
-		<h1>Products</h1>
-      </div><!-- /header -->
-
-      <div role="main" class="ui-content">
-		<h2>Products</h2>
-
-		<div>
-		<table data-role="table" id="products-table" data-mode="columntoggle" data-column-btn-theme="a" class="ui-shadow table-stroke">
-          <tbody>
-             
-        </tbody>
-      </table>
-		</div>
-
 <div data-role="page" id="add-products" data-theme="a">
       <div data-role="header">
 		<h1>Add Products</h1>
-	
-
-	
+      </div><!-- /header -->
+      <div role="main" class="ui-content">
+         <h2>Add Products</h2>
+            Name <input type="text" name="name" id="name" value="">
+            Type <input type="text" name="type" id="type" value="">
+            Price <input type="text" name="price" id="price" value="">
+            Image <input type="file" name="image" id="image" value="">
+            Size <input type="text" name="size" id="size" value="">
+            <button class="ui-btn" id="addProductButton">Submit</button>
+	</div><!-- /content -->
 </div>
 
-<div data-role="page" id="add-orders" data-theme="a">
+<div data-role="page" id="driver" data-theme="a">
+      <div data-role="header">
+		<h1>Driver</h1>
+
+      </div><!-- /header -->
+      <div>
+      Check the Weather before you go!
+         <form id="city-form">         
+            <div><input type="text" data-mini="true" id="city-name" value=""></div>
+            <div><input type="submit" value="Submit"></div>
+         </form>
+      </div>
+      <div id="weather">
+         <div id="city"></div>
+         <div id="desc"></div>
+         <div id="temp"></div>
+      </div>
+
+      <div role="main" class="ui-content">
+
+
+</div>
+      
+	</div><!-- /content -->
+</div>
+
+<div data-role="page" id="addOrders" data-theme="a">
       <div data-role="header">
 		<h1>Order Processing</h1>
       </div><!-- /header -->
@@ -103,17 +120,6 @@
 	</div><!-- /content -->
 </div>
 
-<div data-role="page" id="driver" data-theme="a">
-      <div data-role="header">
-		<h1>Driver</h1>
-      </div><!-- /header -->
-
-      <div role="main" class="ui-content">
-		<h2>Driver</h2>
-       
-	</div><!-- /content -->
-</div>
-
 <div data-role="page" id="orderSummary" data-theme="a">
       <div data-role="header">
 		<h1>Order Summary</h1>
@@ -125,13 +131,13 @@
 	</div><!-- /content -->
 </div>
 
-<div data-role="page" id="currentOrders" data-theme="a">
+<div data-role="page" id="viewOrders" data-theme="a">
       <div data-role="header">
-		<h1>Current Orders</h1>
+		<h1>View Orders</h1>
       </div><!-- /header -->
 
       <div role="main" class="ui-content">
-		<h2>Current Orders</h2>
+		<h2>View Orders</h2>
        
 	</div><!-- /content -->
 </div>
@@ -139,12 +145,52 @@
 <div data-role="page" id="manager" data-theme="a">
       <div data-role="header">
 		<h1>Manager</h1>
-      </div><!-- /header -->
+      </div><!-- /header --> 
       <div role="main" class="ui-content">
 		<h2>Manager</h2>
       <a href="/index#orderSummary" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">Order Summary</a>
       <a href="/index#add-products" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">Add New Product</a>
-      <a href="/index#currentOrders" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">View Current Orders</a>
+      <a href="/index#viewOrders" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">View Current Orders</a>
+      </div>
+</div>
+
+<div data-role="page" id="products" data-theme="a">
+      <div data-role="header">
+		<h1>Products</h1>
+      </div><!-- /header -->
+      <div role="main" class="ui-content">
+		<h2>Products</h2>
+      <div>
+         <table data-role="table" id="products-table" data-mode="columntoggle" data-column-btn-theme="a" class="ui-shadow table-stroke">
+            <tbody>
+            </tbody>
+         </table>
+         <button class="ui-btn" id="proceedWithOrderButton">Proceed with this order</button>
+      </div>
+   </div>
+</div>
+
+<div data-role="page" id="viewCart" data-theme="a">
+      <div data-role="header">
+		<h1>View Carts</h1>
+      </div><!-- /header -->
+      <div role="main" class="ui-content">
+		<h2>View Carts</h2>
+      <div>
+         <table data-role="table" id="carts-table" data-mode="columntoggle" data-column-btn-theme="a" class="ui-shadow table-stroke">
+            <tbody>
+            </tbody>
+         </table>
+      </div>
+      <div>
+      <h2>Address:</h2>
+       Line 1 <input type="text" name="line1" id="line1" value="">
+       Line 2 <input type="text" name="line2" id="line2" value="">
+       Postal code <input type="text" name="postalCode" id="postalCode" value="">
+       Mobile <input type="text" name="mobile" id="mobile" value="">
+       <button class="ui-btn" id="checkoutButton">Checkout</button>
+      </div>
+   </div>
 </div>
 
 <script>
@@ -157,15 +203,19 @@ $( "#loginButton" ).click(function() {
       
       $.post( "/backend", { type: "login", username:un, password:pw})
      .done(function( data ) {
-        alert( "Data Loaded: " + data );
+        data = JSON.parse(data);
+
+        // save logged in user info in session
+        sessionStorage.setItem('userId', data.id); 
+        sessionStorage.setItem('userName', data.username); 
         
-        if(data == 'customer'){
+        if(data.acctype == 'customer'){
             window.location="/index#products";
         }
-        else if(data == 'driver'){
+        else if(data.acctype == 'driver'){
             window.location="/index#driver";
         }
-        else if(data == 'manager'){
+        else if(data.acctype == 'manager'){
             window.location="/index#manager";
         }          
        });
@@ -188,55 +238,56 @@ $( "#registerButton" ).click(function() {
 
        //alert( "register button pressed!" );
 });
+
+function readImage(inputElement) {
+    var deferred = $.Deferred();
+
+    var files = inputElement.get(0).files;
+    if (files && files[0]) {
+        var fr= new FileReader();
+        fr.onload = function(e) {
+            deferred.resolve(e.target.result);
+        };
+        fr.readAsDataURL( files[0] );
+    } else {
+        deferred.resolve(undefined);
+    }
+
+    return deferred.promise();
+}
+
    //Add a Product to the Products Database
  $("#addProductButton").click(function() {
- 	 alert( "add product button pressed!" );
       var pname = $( "#name" ).val();
       var ptype = $( "#type" ).val();
 	   var pprice = $( "#price" ).val();
-	   var pimage = btoa($( "#image" )[0].files[0]);  //converting image file to base64
+      var inputElement = $("#image");
       var psize = $( "#size" ).val();
-      $.post( "/products", { type: "add", name: pname, ptype: ptype, price: pprice, image: pimage, size: psize})
-	 .done(function( data ) {
-        alert( "Data Loaded: " + data );
-       });
+      readImage(inputElement).done(function(base64Data){
+         var pimage = base64Data;
+         $.post( "/products", { type: "add", name: pname, ptype: ptype, price: pprice, image: pimage, size: psize})
+         .done(function( data ) {
+            alert( "Product added: " + data );
+         });
+      });
 });
-
-  //Process Orders
- $("#addOrderButton").click(function() {
- 	 alert( "add orders button pressed!" );
-      var userId = $( "#userId" ).val();
-      var prdId = $( "#prdId" ).val();
-	   var quantity = $( "#quantity" ).val();
-      var address = $( "#address" ).val();
-      var phone = $( "#phone" ).val();
-      var status = $( "#status" ).val();
-      $.post( "/orders", { type: "orders", userId: userId, prdId: prdId, quantity: quantity, 
-         address: address, phone: phone, status: status})
-	 .done(function( data ) {
-        alert( "Data Loaded: " + data );
-       });
-});
-
-//get products when page loads
-{# $('#products').on('pageinit', function() { #}
 
 var items = [];
 
 function addToCart(pizzaId, name){
    var quantity = $('#quantity'+pizzaId+'').val();
    items.push({"id":pizzaId, "name": name, "quantity": quantity});
-   console.log(items);
    sessionStorage.setItem('cartItems', JSON.stringify(items)); 
-
-   console.log(JSON.stringify(sessionStorage.getItem('cartItems')));
+   console.log(sessionStorage.getItem('cartItems'));
 }
 
 $(document).on('pagebeforeshow','#products' ,function(e,data){  
 	 $.get( "/products/getProducts")
 	 .done(function(results) {
         $(results).each(function(index, result) {
-				 /// populate table using jquery
+
+				 // populate table using jquery
+             //<img src="../images/hawaiian.jpg">
             let productBody = `
                <tr>
                <td>
@@ -244,7 +295,7 @@ $(document).on('pagebeforeshow','#products' ,function(e,data){
                      <div class="ui-grid-a" id="">	
                         <div class="ui-block-a">
                               <h1>${result.name}</h1>
-                              <img src="../images/hawaiian.jpg">
+                              <img class="product-image" src="${result.image}" alt=hawaiian_pizza />
                               <p><strong> Price: ${result.price}</strong></p>
                         </div>
                         <div class="ui-block-b">
@@ -266,11 +317,118 @@ $(document).on('pagebeforeshow','#products' ,function(e,data){
 
 });
 
+$(document).on('pagebeforeshow','#addOrders' ,function(e,data){  
+ // code goes here will execute on pagebeforeshow event
 
+   var cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+   $(cartItems).each(function(index, result){
+      console.log(result);
+   });
+});
 
+function getProductsPrice(){
+   var deferred = $.Deferred();
+    $.get( "/products/getProducts").done(function(results) {
+       deferred.resolve(results);
+    });
+    return deferred.promise();
+}
+
+function getItem(productsArr, itemId){  
+   return productsArr.find( result => result.id === itemId );
+}
+
+// global variable
+var totalCartPrice = 0;
+var orderData = [];
+
+$(document).on('pagebeforeshow','#viewCart' ,function(e,data){  
+   getProductsPrice().done(function(results){
+      var totalProducts = results;
+      var finalItems = JSON.parse(sessionStorage.getItem('cartItems'));
+      $(finalItems).each(function(index, result) {
+         var itemId = result.id;
+         var itemQuantity = result.quantity;
+
+         // calculate total price for each item in cart
+         var currentItem = getItem(totalProducts, itemId, itemQuantity);
+         var price = currentItem.price*itemQuantity;
+         totalCartPrice += price;
+         var image = currentItem.image;
+
+         // save into orderData array so that we can insert it to database
+         orderData.push({id: itemId, name: currentItem.name, quantity: itemQuantity, price: price});
+
+         let productBody = `
+               <tr>
+                  <td>
+                     <div data-role="content">
+                        <div class="ui-grid-a" id="">	
+                           <div class="ui-block-a">
+                                 <h1>${result.name}</h1>
+                                 <img class="product-image" src="${image}" alt=hawaiian_pizza />
+                                 <p><strong> Price: ${price}</strong></p>
+                           </div>
+                  <td>
+                </tr>
+               `;
+         $('#carts-table > tbody:last-child').append(productBody);
+         
+      });
+
+      // append totalCartPrice section
+      let footer = `
+               <tr>
+                  <td>
+                     <div data-role="content">
+                        <div class="ui-grid-a" id="">	
+                           <div class="ui-block-a">
+                                 <p><strong> Total Price: ${totalCartPrice}</strong></p>
+                     </div>
+                  <td>
+                </tr>
+               `;
+      $('#carts-table > tbody:last-child').append(footer);
+   });
+});
+
+$("#checkoutButton").click(function() {
+   // submit into database and send email if needed here
+   var userId = sessionStorage.getItem('userId'); 
+   var address = $('#line1').val() +'\n'+$('#line2').val()+'\n'+$('#postalCode').val();
+   var phone = $('#mobile').val();
+   var status = 'placed'; 
+   var orderObject = {userId: userId, address: address, phone: phone,
+                     status: status, total_cart_price: totalCartPrice, order_data: JSON.stringify(orderData)}
+  
+   $.post( "/orders/save", orderObject)
+	 .done(function( data ) {
+        sessionStorage.setItem('cartItems', JSON.stringify([{}])); 
+        window.location="/index#products";
+       });
+});
+
+$("#proceedWithOrderButton").click(function(){
+   window.location="/index#viewCart";
+});
+
+//Weather API
+$("#city-form").submit(function(event){
+   event.preventDefault();
+   
+   var cityName = $("#city-name").val();
+   getWeather(cityName);
+});
+
+function getWeather(city){
+$.get("https://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID=b7e49e0983c7dd535e197e6c1858e98a", function(data){
+console.log(data);
+   $("#city").html(data.name);
+   $("#desc").html(data.weather[0].description);
+   $("#temp").html(data.main.temp);
+})
+}
 
 </script>
-
-
 </body>
 </html>

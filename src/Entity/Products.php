@@ -33,7 +33,7 @@ class Products implements \JsonSerializable
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=2048, nullable=true)
+     * @ORM\Column(type="string", columnDefinition="longtext", nullable=true)
      */
     private $image;
 

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LoginRepository")
  */
-class Login
+class Login implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -70,5 +70,22 @@ class Login
         $this->acctype = $acctype;
 
         return $this;
+    }
+
+    public function __toString(){
+        return json_encode([
+            "id"=> $this->getId(),
+            "username" => $this->getUsername(),
+            "acctype"=> $this->getAcctype()
+        ]);  
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id"=> $this->getId(),
+            "username" => $this->getUsername(),
+            "acctype"=> $this->getAcctype()
+        ];
     }
 }

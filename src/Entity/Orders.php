@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
  */
-class Orders
+class Orders implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -20,16 +20,6 @@ class Orders
      * @ORM\Column(type="integer")
      */
     private $user_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $prd_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantity;
 
     /**
      * @ORM\Column(type="string", length=500)
@@ -45,6 +35,16 @@ class Orders
      * @ORM\Column(type="string", length=255)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $totalCartPrice;
+
+    /**
+     * @ORM\Column(type="string", length=1024)
+     */
+    private $orderData;
 
     public function getId(): ?int
     {
@@ -121,5 +121,42 @@ class Orders
         $this->status = $status;
 
         return $this;
+    }
+
+    public function getTotalCartPrice(): ?int
+    {
+        return $this->totalCartPrice;
+    }
+
+    public function setTotalCartPrice(int $totalCartPrice): self
+    {
+        $this->totalCartPrice = $totalCartPrice;
+
+        return $this;
+    }
+
+    public function getOrderData(): ?string
+    {
+        return $this->orderData;
+    }
+
+    public function setOrderData(string $orderData): self
+    {
+        $this->orderData = $orderData;
+
+        return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id"=> $this->getId(),
+            "user_id" => $this->getUserId(),
+            "address"=> $this->getAddress(),
+            "phone"=> $this->getPhone(),
+            "status"=> $this->getStatus(),
+            "total_cart_price"=> $this->getTotalCartPrice(),
+            "order_data"=> $this->getOrderData()
+        ];
     }
 }

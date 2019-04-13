@@ -5,8 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Login;
-use App\Entity\Products;
-use App\Entity\Orders;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;   
 
@@ -54,13 +52,12 @@ class BackendController extends AbstractController
             $repo = $this->getDoctrine()->getRepository(Login::class); // the type of the entity
 
             $person = $repo->findOneBy([
-
                 'username' => $username,
                 'password' => $password,
                 ]);
-                return new Response(
-                    $person->getAcctype()
-                    );               
+            return new Response(
+                $person
+            );               
         }
     }
 }

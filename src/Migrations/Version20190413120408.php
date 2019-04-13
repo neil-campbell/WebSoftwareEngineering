@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190328090140 extends AbstractMigration
+final class Version20190413120408 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,8 @@ final class Version20190328090140 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE products ADD size VARCHAR(15) NOT NULL');
+        $this->addSql('ALTER TABLE orders ADD total_cart_price INT NOT NULL, ADD order_data VARCHAR(1024) NOT NULL, DROP prd_id, DROP quantity');
+        $this->addSql('ALTER TABLE products CHANGE image image longtext');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +31,7 @@ final class Version20190328090140 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE products DROP size');
+        $this->addSql('ALTER TABLE orders ADD quantity INT NOT NULL, DROP order_data, CHANGE total_cart_price prd_id INT NOT NULL');
+        $this->addSql('ALTER TABLE products CHANGE image image LONGTEXT DEFAULT NULL COLLATE utf8mb4_unicode_ci');
     }
 }
