@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Orders;
 use Symfony\Component\HttpFoundation\Response; 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OrdersController extends AbstractController
 {
@@ -55,6 +56,20 @@ class OrdersController extends AbstractController
         return new Response(
             'A new Order has been added.'
         );
+    }
+
+     /**
+     * @Route("/order/getOrders", name="getOrders") methods={"GET"}
+     */
+    public function getOrders(){
+        $repo = $this->getDoctrine()->getRepository(Orders::class); // the type of the entity
+        $orders = $repo->findAll();
+        if (!$orders) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+        return new JsonResponse($orders);     
     }
 }
     

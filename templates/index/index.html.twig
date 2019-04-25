@@ -23,13 +23,12 @@
 
 <div data-role="page" id="">
 	<div data-role="header">
-		<h1>Multi-page</h1>
+		
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
 		<h2>Welcome!</h2>
+      <h3>Register or Login if you want some Pizza</h3>
 		<br>
-        Welcome to the application, login or register.
-		<h3>Show internal pages:</h3>
 		<p><a href="#register" class="ui-btn ui-shadow ui-corner-all">Register</a></p>
 		<p><a href="#login" class="ui-btn ui-shadow ui-corner-all">Login</a></p>
 	</div><!-- /content -->
@@ -45,7 +44,7 @@
      <div role="main" class="ui-content">
 		<h2>Login</h2>
 	   Username <input type="text" name="login_username" id="login_username" value="">
-       Password <input type="text" name="login_pass" id="login_pass" value="">
+      Password <input type="text" name="login_pass" id="login_pass" value="">
         <button class="ui-btn" id="loginButton">Submit</button>
 	</div><!-- /content -->
 </div>
@@ -68,6 +67,7 @@
 		<h1>Add Products</h1>
       </div><!-- /header -->
       <div role="main" class="ui-content">
+      <a href="/index#manager" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">Return to Manager HomePage</a>
          <h2>Add Products</h2>
             Name <input type="text" name="name" id="name" value="">
             Type <input type="text" name="type" id="type" value="">
@@ -78,11 +78,12 @@
 	</div><!-- /content -->
 </div>
 
-<div data-role="page" id="driver" data-theme="a">
+<div data-role="page" id="weatherCheck" data-theme="a">
       <div data-role="header">
-		<h1>Driver</h1>
+		<h1>Weather API</h1>
 
       </div><!-- /header -->
+      <a href="/index#driver" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">Return to Driver HomePage</a>
       <div>
       Check the Weather before you go!
          <form id="city-form">         
@@ -101,6 +102,20 @@
 
 </div>
       
+	</div><!-- /content -->
+</div>
+
+
+<div data-role="page" id="driver" data-theme="a">
+      <div data-role="header">
+		<h1>Driver HomePage</h1>
+      </div><!-- /header -->
+
+      <div role="main" class="ui-content">
+      <a href="/index#viewOrders" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">Check Current Orders</a>
+      <a href="/index#weatherCheck" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">Weather Check</a>
+		
+       
 	</div><!-- /content -->
 </div>
 
@@ -127,6 +142,11 @@
 
       <div role="main" class="ui-content">
 		<h2>Order Summary</h2>
+      <a href="/index#manager" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">Return to Manager HomePage</a>
+      <table data-role="table" id="order-summary" data-mode="columntoggle" data-column-btn-theme="a" class="ui-shadow table-stroke">
+            <tbody>
+            </tbody>
+      </table>
        
 	</div><!-- /content -->
 </div>
@@ -135,9 +155,16 @@
       <div data-role="header">
 		<h1>View Orders</h1>
       </div><!-- /header -->
-
       <div role="main" class="ui-content">
+      <a href="/index#driver" data-role="button" data-iconpos="right" data-mini="true" data-inline="true">Return to Driver HomePage</a>
+
+      
 		<h2>View Orders</h2>
+
+      <table data-role="table" id="order-table" data-mode="columntoggle" data-column-btn-theme="a" class="ui-shadow table-stroke">
+            <tbody>
+            </tbody>
+      </table>
        
 	</div><!-- /content -->
 </div>
@@ -287,7 +314,6 @@ $(document).on('pagebeforeshow','#products' ,function(e,data){
         $(results).each(function(index, result) {
 
 				 // populate table using jquery
-             //<img src="../images/hawaiian.jpg">
             let productBody = `
                <tr>
                <td>
@@ -296,7 +322,7 @@ $(document).on('pagebeforeshow','#products' ,function(e,data){
                         <div class="ui-block-a">
                               <h1>${result.name}</h1>
                               <img class="product-image" src="${result.image}" alt=hawaiian_pizza />
-                              <p><strong> Price: ${result.price}</strong></p>
+                              <p><strong> Price: € ${result.price}</strong></p>
                         </div>
                         <div class="ui-block-b">
                            <fieldset data-role="controlgroup" data-mini="true">
@@ -359,7 +385,7 @@ $(document).on('pagebeforeshow','#viewCart' ,function(e,data){
          // save into orderData array so that we can insert it to database
          orderData.push({id: itemId, name: currentItem.name, quantity: itemQuantity, price: price});
 
-         let productBody = `
+         let orderData = `
                <tr>
                   <td>
                      <div data-role="content">
@@ -372,7 +398,7 @@ $(document).on('pagebeforeshow','#viewCart' ,function(e,data){
                   <td>
                 </tr>
                `;
-         $('#carts-table > tbody:last-child').append(productBody);
+         $('#carts-table > tbody:last-child').append(orderData);
          
       });
 
@@ -429,6 +455,56 @@ console.log(data);
 })
 }
 
+//display orders on Order Summary Page for Manager
+$(document).on('pagebeforeshow','#orderSummary' ,function(e,data){  
+	 $.get( "/order/getOrders")
+	 .done(function(results) {
+        $(results).each(function(index, result) {
+
+				 // populate table using jquery
+            let orderSummaryBody = `
+               <tr>
+               <td>
+                  <div data-role="content">
+                     <div class="ui-grid-a" id="">	
+                        <div class="ui-block-a">
+                              <label><strong>User ID:</strong> ${result.user_id}</label>
+                              <label><strong>Total Cost of Order: €</strong> ${result.total_cart_price}</label>
+                        </div>	
+               <td>
+             </tr>
+            `;
+            $('#order-summary > tbody:last-child').append(orderSummaryBody);
+			});
+       });
+});
+
+//display orders on Order Summary Page for Manager
+$(document).on('pagebeforeshow','#viewOrders' ,function(e,data){  
+	 $.get( "/order/getOrders")
+	 .done(function(results) {
+        $(results).each(function(index, result) {
+
+				 // populate table using jquery
+            let viewOrdersBody = `
+               <tr>
+               <td>
+                  <div data-role="content">
+                     <div class="ui-grid-a" id="">	
+                        <div class="ui-block-a">
+                              <label><strong>User ID:</strong> ${result.user_id}</label>
+                              <label><strong>Address:</strong> ${result.address}</label>
+                              <label><strong>Phone:</strong> ${result.phone}</label>
+                              <label><strong>Order Data</strong> ${result.order_data}</label>
+                              <label><strong>Status</strong> ${result.status}</label>
+                        </div>	
+               <td>
+             </tr>
+            `;
+            $('#order-table > tbody:last-child').append(viewOrdersBody);
+			});
+       });
+});
 </script>
 </body>
 </html>
